@@ -23,11 +23,13 @@
     .publication-button:focus-visible{outline:3px solid #315bc0;outline-offset:3px}
     .publication-button svg{width:18px;height:18px;flex-shrink:0}
     .abstract{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:64px 28px}
-    .abstract h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
-    .abstract h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
-    .abstract p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:800px;margin:0 auto}
+    .abstract h2,.dataset h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
+    .abstract h2::after,.dataset h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
+    .abstract p,.dataset p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:800px;margin:0 auto}
+    .dataset{background:#fff;padding:64px 28px;border-bottom:1px solid #e2e8f0}
+    .dataset p+p{margin-top:24px}
     footer{max-width:960px;padding:0 28px;font-size:12px;color:#8892a6;margin:35px auto 0}
-    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract{padding:48px 20px}.abstract p{text-align:left}h1{margin-top:16px}}
+    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
   </style>
 </head>
 <body>
@@ -46,6 +48,11 @@
     <section class="abstract" aria-labelledby="abstract-heading">
       <h2 id="abstract-heading">Abstract</h2>
       <p>Text-guided long-term human motion generation is essential for applications such as continuously operating digital avatars. Despite recent progress on short clips, existing models struggle with multi-segment instructions that involve anaphora, where constraints established in earlier segments must be preserved over time. In this paper, we introduce a novel task of long-term motion generation from such anaphoric compositions. To mitigate this, we present ELMA, an episodic long-term motion dataset with dense segment-level annotations that preserve cross-segment dependencies. Built via a fully automated collection and filtering pipeline, ELMA extracts high-quality, continuous 30-second clips from in-the-wild videos, capturing the episodic narratives necessary for long-range state modeling. Leveraging this dataset, we fine-tune state-of-the-art motion generation models to incorporate long-range context. Extensive experiments reveal fundamental shortcomings in current models when handling context-dependent instructions. We demonstrate that ELMA enables significant improvements in both global physical realism and semantic alignment, setting a robust new baseline for long-term motion synthesis.</p>
+    </section>
+    <section class="dataset" aria-labelledby="dataset-heading">
+      <h2 id="dataset-heading">Dataset</h2>
+      <p>We introduce ELMA (<strong>E</strong>pisodic <strong>L</strong>ong-term <strong>M</strong>otion dataset with multi-segment <strong>A</strong>nnotations), an episodic long-term 3D human motion dataset built from continuous 30-second clips with densely aligned segment-level captions that explicitly preserve and annotate anaphoric dependencies across segments.</p>
+      <p>Unlike existing datasets that often lack temporal semantic coherence due to the aggregation of fragmented short clips or the synthesis of motion data using existing generative models, our approach leverages continuous in-the-wild RGB videos. We choose 30 seconds as a practical horizon that is long enough to exhibit cross-segment state persistence while remaining feasible for reliable tracking in unconstrained videos. By extracting uninterrupted 30-second sequences, ELMA naturally preserves the temporal semantic coherence and physical consistency of extended activities. These episodic clips provide the coherent context needed to capture long-range constraints, such as maintaining a hand pose while transitioning to locomotion or sustaining an object-holding state across segments.</p>
     </section>
     <footer>© 2026 ELMA authors.</footer>
   </main>
