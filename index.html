@@ -31,16 +31,11 @@
     footer{max-width:960px;padding:0 28px;font-size:12px;color:#8892a6;margin:35px auto 0}
     @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
 
-    .dataset-visuals{max-width:800px;margin:8px auto 24px}
+    .dataset-visuals{max-width:800px;margin:0 auto 24px}
     .dataset-visuals img{display:block;width:100%;height:auto}
-    .dataset-teaser{max-width:800px;margin:0 auto}
-    .dataset-teaser img{display:block;width:100%;height:auto}
-    .sample-toggle{margin-top:0;overflow:hidden}
-    .sample-toggle summary{cursor:pointer;width:fit-content;padding:6px 0;font-size:14px;font-weight:400;color:#64748b}
-    .sample-toggle summary:hover{color:#363636}
-    .sample-carousel{margin-top:12px}
-    .sample-toggle summary:focus-visible,.sample-controls button:focus-visible,.sample-track:focus-visible{outline:3px solid #315bc0;outline-offset:-3px}
-    .sample-track{cursor:grab;touch-action:pan-x pan-y;user-select:none;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
+    .sample-carousel{margin:0}
+    .sample-controls button:focus-visible,.sample-track:focus-visible{outline:3px solid #315bc0;outline-offset:-3px}
+    .sample-track{aspect-ratio:2400/705;cursor:grab;touch-action:pan-x pan-y;user-select:none;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
     .sample-track::-webkit-scrollbar{display:none}
     .sample-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;margin:0;align-self:center}
     .sample-controls{display:flex;justify-content:center;align-items:center;gap:18px;padding:16px}
@@ -75,24 +70,20 @@
     </section>
     <section class="dataset" aria-labelledby="dataset-heading">
       <h2 id="dataset-heading">Dataset</h2>
-        <figure class="dataset-teaser"><img src="assets/dataset-teaser.webp" width="2400" height="705" alt="ELMA dataset teaser: a continuous barbell-lifting motion with segment captions and cross-segment anaphoric dependencies." loading="lazy"></figure>
-
-
       <div class="dataset-visuals">
-        <details class="sample-toggle">
-          <summary>Other samples</summary>
-          <div class="sample-carousel" role="region" aria-roledescription="carousel" aria-label="Dataset samples">
-            <div class="sample-track" id="sample-track" tabindex="0" aria-label="Sample images. Use left and right arrow keys to switch.">
-              <figure class="sample-slide" role="group" aria-roledescription="slide" aria-label="1 of 2"><img src="assets/dataset-sample-2.webp" width="2400" height="628" alt="Dataset sample 2: a continuous sword movement sequence with six segment captions." loading="lazy" draggable="false"></figure>
-              <figure class="sample-slide" role="group" aria-roledescription="slide" aria-label="2 of 2"><img src="assets/dataset-sample-3.webp" width="2400" height="631" alt="Dataset sample 3: a continuous tennis movement sequence with six segment captions." loading="lazy" draggable="false"></figure>
-            </div>
-            <div class="sample-controls">
-              <button type="button" class="sample-dot" aria-label="Show sample 1" aria-controls="sample-track" aria-current="true"></button>
-              <button type="button" class="sample-dot" aria-label="Show sample 2" aria-controls="sample-track" aria-current="false"></button>
-              <output id="sample-position" class="sr-only" aria-live="polite">1 / 2</output>
-            </div>
+        <div class="sample-carousel" role="region" aria-roledescription="carousel" aria-label="ELMA dataset examples">
+          <div class="sample-track" id="sample-track" tabindex="0" aria-label="Drag left or right, or use arrow keys, to view examples.">
+            <figure class="sample-slide" role="group" aria-roledescription="slide" aria-label="1 of 3"><img src="assets/dataset-sample-2.webp" width="2400" height="628" alt="Sword movement sequence with six segment captions." loading="eager" draggable="false"></figure>
+            <figure class="sample-slide" role="group" aria-roledescription="slide" aria-label="2 of 3"><img src="assets/dataset-teaser.webp" width="2400" height="705" alt="ELMA teaser: barbell-lifting motion with captions and cross-segment anaphoric dependencies." loading="eager" draggable="false"></figure>
+            <figure class="sample-slide" role="group" aria-roledescription="slide" aria-label="3 of 3"><img src="assets/dataset-sample-3.webp" width="2400" height="631" alt="Tennis movement sequence with six segment captions." loading="eager" draggable="false"></figure>
           </div>
-        </details>
+          <div class="sample-controls">
+            <button type="button" class="sample-dot" aria-label="Show sample 2" aria-controls="sample-track" aria-current="false"></button>
+            <button type="button" class="sample-dot" aria-label="Show teaser" aria-controls="sample-track" aria-current="true"></button>
+            <button type="button" class="sample-dot" aria-label="Show sample 3" aria-controls="sample-track" aria-current="false"></button>
+            <output id="sample-position" class="sr-only" aria-live="polite">2 / 3</output>
+          </div>
+        </div>
       </div>
       <p>We introduce ELMA (<strong>E</strong>pisodic <strong>L</strong>ong-term <strong>M</strong>otion dataset with multi-segment <strong>A</strong>nnotations), an episodic long-term 3D human motion dataset built from continuous 30-second clips with densely aligned segment-level captions that explicitly preserve and annotate anaphoric dependencies across segments. Unlike existing datasets that often lack temporal semantic coherence due to the aggregation of fragmented short clips or the synthesis of motion data using existing generative models, our approach leverages continuous in-the-wild RGB videos. We choose 30 seconds as a practical horizon that is long enough to exhibit cross-segment state persistence while remaining feasible for reliable tracking in unconstrained videos. By extracting uninterrupted 30-second sequences, ELMA naturally preserves the temporal semantic coherence and physical consistency of extended activities. These episodic clips provide the coherent context needed to capture long-range constraints, such as maintaining a hand pose while transitioning to locomotion or sustaining an object-holding state across segments.</p>
     </section>
@@ -104,7 +95,7 @@
   const track = document.getElementById('sample-track');
   const counter = document.getElementById('sample-position');
   const count = track.children.length;
-  let index = 0;
+  let index = 1;
   const dots = Array.from(document.querySelectorAll('.sample-dot'));
   function update() {
     counter.value = (index + 1) + ' / ' + count;
@@ -162,9 +153,8 @@
     index = Math.round(track.scrollLeft / track.clientWidth);
     update();
   }, {passive: true});
-  document.querySelector('.sample-toggle').addEventListener('toggle', event => {
-    if (event.target.open) show(index);
-  });
+  track.scrollTo({left: track.clientWidth, behavior: 'instant'});
+  update();
   window.addEventListener('resize', () => {
     if (track.clientWidth) track.scrollTo({left: index * track.clientWidth, behavior: 'instant'});
   });
