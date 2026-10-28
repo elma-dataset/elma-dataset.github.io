@@ -17,6 +17,11 @@
     .authors sup,.affiliations sup{font-size:.65em;vertical-align:super;line-height:0}
     .affiliations{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;font-size:18px;line-height:1.6;margin:0 0 16px}
     .venue{font-size:20px;font-weight:400;color:#363636}
+    .publication-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .publication-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 20px;border:1px solid transparent;border-radius:9999px;background:#363636;color:#fff;font-size:16px;line-height:1.5;transition:background .15s}
+    .publication-button:hover{background:#292929;color:#fff;text-decoration:none}
+    .publication-button:focus-visible{outline:3px solid #315bc0;outline-offset:3px}
+    .publication-button svg{width:18px;height:18px;flex-shrink:0}
     .rule{height:1px;background:#e0e5f1;margin:48px 0}
     .panel{background:white;border:1px solid #e2e7f1;border-radius:20px;padding:43px;box-shadow:0 10px 45px rgba(33,52,98,.04)}
     .panel h2{font-size:30px;margin:0 0 12px;letter-spacing:-.035em}
@@ -33,6 +38,9 @@
     <p class="authors"><span class="author">Shun Kato<sup>1,2</sup></span>, <span class="author">Dixin Yang<sup>1</sup></span>, <span class="author">Kotaro Amaya<sup>1</sup></span>, <span class="author">Yuiga Wada<sup>1</sup></span>, <span class="author">Kazumi Fukuda<sup>2,3</sup></span>, <span class="author">Takashi Shibuya<sup>3</sup></span>, <span class="author">Yuki Mitsufuji<sup>3</sup></span>, <span class="author">Mariko Isogawa<sup>1,2</sup></span></p>
     <p class="affiliations"><span><sup>1</sup> Keio University</span> <span><sup>2</sup> Keio AI Center</span> <span><sup>3</sup> Sony Group Corporation</span></p>
     <div class="venue">NeurIPS 2026 — Evaluations &amp; Datasets Track</div>
+    <nav class="publication-links" aria-label="Publication links">
+      <a class="publication-button" href="https://arxiv.org/abs/2610.13549" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H5V3h2Z"/><path d="M14 3v6h5M8 13h8M8 17h6"/></svg><span>arXiv</span></a>
+    </nav>
     </header>
     <div class="rule"></div>
     <section class="panel" aria-label="Project updates">
