@@ -33,6 +33,9 @@
 
     .dataset-teaser{max-width:800px;margin:0 auto 24px}
     .dataset-teaser img{display:block;width:100%;height:auto}
+    .dataset-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:800px;margin:0 auto 24px}
+    .dataset-videos video{display:block;width:100%;height:auto;min-width:0;background:#000}
+    @media(max-width:560px){.dataset-videos{gap:8px}}
   </style>
 </head>
 <body>
@@ -55,6 +58,10 @@
     <section class="dataset" aria-labelledby="dataset-heading">
       <h2 id="dataset-heading">Dataset</h2>
       <figure class="dataset-teaser"><img src="assets/dataset-teaser.webp" width="2400" height="705" alt="ELMA dataset teaser: a continuous barbell-lifting motion with segment captions and cross-segment anaphoric dependencies." loading="lazy"></figure>
+      <div class="dataset-videos" aria-label="ELMA dataset video examples">
+        <video controls muted playsinline loop preload="metadata" width="1280" height="684" aria-label="Dataset example C00004213"><source src="assets/dataset-video-1.mp4" type="video/mp4">Your browser does not support embedded video.</video>
+        <video controls muted playsinline loop preload="metadata" width="1280" height="684" aria-label="Dataset example C00009277"><source src="assets/dataset-video-2.mp4" type="video/mp4">Your browser does not support embedded video.</video>
+      </div>
       <p>We introduce ELMA (<strong>E</strong>pisodic <strong>L</strong>ong-term <strong>M</strong>otion dataset with multi-segment <strong>A</strong>nnotations), an episodic long-term 3D human motion dataset built from continuous 30-second clips with densely aligned segment-level captions that explicitly preserve and annotate anaphoric dependencies across segments. Unlike existing datasets that often lack temporal semantic coherence due to the aggregation of fragmented short clips or the synthesis of motion data using existing generative models, our approach leverages continuous in-the-wild RGB videos. We choose 30 seconds as a practical horizon that is long enough to exhibit cross-segment state persistence while remaining feasible for reliable tracking in unconstrained videos. By extracting uninterrupted 30-second sequences, ELMA naturally preserves the temporal semantic coherence and physical consistency of extended activities. These episodic clips provide the coherent context needed to capture long-range constraints, such as maintaining a hand pose while transitioning to locomotion or sustaining an object-holding state across segments.</p>
     </section>
     <footer>© 2026 ELMA authors.</footer>
