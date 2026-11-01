@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#ffffff">
   <title>ELMA: Benchmarking Anaphoric Compositions for Long-Term Text-to-Motion Generation</title>
   <style>
-    :root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#363636;background:#ffffff}
+    :root{--content-width:800px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#363636;background:#ffffff}
     *{box-sizing:border-box}body{margin:0}a{color:#315bc0;text-decoration:none}a:hover{text-decoration:underline}
     main{padding:95px 0 110px}
     .publication-header{max-width:960px;margin:0 auto;padding:0 28px 64px;text-align:center}
@@ -25,15 +25,16 @@
     .abstract{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:64px 28px}
     .abstract h2,.dataset h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
     .abstract h2::after,.dataset h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
-    .abstract p,.dataset p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:800px;margin:0 auto}
+    .abstract p,.dataset p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:var(--content-width);margin:0 auto}
     .dataset{background:#fff;padding:64px 28px;border-bottom:1px solid #e2e8f0}
     .dataset p+p{margin-top:24px}
     footer{max-width:960px;padding:0 28px;font-size:12px;color:#8892a6;margin:35px auto 0}
     @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
 
-    .dataset-teaser{max-width:800px;margin:0 auto 24px}
-    .dataset-teaser img{display:block;width:100%;height:auto}
-    .dataset-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:800px;margin:0 auto 24px}
+    .dataset-teaser{width:100%;max-width:var(--content-width);margin:0 auto 24px;overflow:hidden}
+    /* Trim the source image\'s horizontal white margins (57px left, 59px right at 2400px). */
+    .dataset-teaser img{display:block;width:105.078809%;max-width:none;height:auto;margin-left:-2.495622%}
+    .dataset-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:var(--content-width);margin:0 auto 24px}
     .dataset-videos video{display:block;width:100%;height:auto;min-width:0;background:#000}
     @media(max-width:560px){.dataset-videos{gap:8px}}
   </style>
