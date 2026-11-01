@@ -23,13 +23,13 @@
     .publication-button:focus-visible{outline:3px solid #315bc0;outline-offset:3px}
     .publication-button svg{width:18px;height:18px;flex-shrink:0}
     .abstract{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:64px 28px}
-    .abstract h2,.dataset h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
-    .abstract h2::after,.dataset h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
+    .abstract h2,.dataset h2,.pipeline h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
+    .abstract h2::after,.dataset h2::after,.pipeline h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
     .abstract p,.dataset p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:var(--content-width);margin:0 auto}
     .dataset{background:#fff;padding:64px 28px;border-bottom:1px solid #e2e8f0}
     .dataset p+p{margin-top:24px}
     footer{max-width:960px;padding:0 28px;font-size:12px;color:#8892a6;margin:35px auto 0}
-    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
+    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset,.pipeline{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
 
     .dataset-teaser{width:100%;max-width:var(--content-width);margin:0 auto 24px;overflow:hidden}
     /* Trim the source image\'s horizontal white margins (57px left, 59px right at 2400px). */
@@ -37,6 +37,10 @@
     .dataset-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:var(--content-width);margin:0 auto 24px}
     .dataset-videos video{display:block;width:100%;height:auto;min-width:0;background:#000}
     @media(max-width:560px){.dataset-videos{gap:8px}}
+    .pipeline{background:#f8fafc;padding:64px 28px;border-bottom:1px solid #e2e8f0}
+    .pipeline-figure{max-width:var(--content-width);margin:0 auto}
+    .pipeline-figure img{display:block;width:100%;height:auto}
+    @media(max-width:560px){.pipeline{padding:48px 20px}}
   </style>
 </head>
 <body>
@@ -64,6 +68,10 @@
         <video controls muted playsinline loop preload="metadata" width="1280" height="684" aria-label="Dataset example C00009277"><source src="assets/dataset-video-2.mp4" type="video/mp4">Your browser does not support embedded video.</video>
       </div>
       <p>We introduce ELMA (<strong>E</strong>pisodic <strong>L</strong>ong-term <strong>M</strong>otion dataset with multi-segment <strong>A</strong>nnotations), an episodic long-term 3D human motion dataset built from continuous 30-second clips with densely aligned segment-level captions that explicitly preserve and annotate anaphoric dependencies across segments. Unlike existing datasets that often lack temporal semantic coherence due to the aggregation of fragmented short clips or the synthesis of motion data using existing generative models, our approach leverages continuous in-the-wild RGB videos. We choose 30 seconds as a practical horizon that is long enough to exhibit cross-segment state persistence while remaining feasible for reliable tracking in unconstrained videos. By extracting uninterrupted 30-second sequences, ELMA naturally preserves the temporal semantic coherence and physical consistency of extended activities. These episodic clips provide the coherent context needed to capture long-range constraints, such as maintaining a hand pose while transitioning to locomotion or sustaining an object-holding state across segments.</p>
+    </section>
+    <section class="pipeline" aria-labelledby="pipeline-heading">
+      <h2 id="pipeline-heading">Pipeline</h2>
+      <figure class="pipeline-figure"><img src="assets/elma-pipeline.webp" width="2400" height="1433" alt="ELMA data construction pipeline: motion extraction, postprocessing, episodic annotation, and anaphora detection." loading="lazy"></figure>
     </section>
     <footer>© 2026 ELMA authors.</footer>
   </main>
