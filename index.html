@@ -23,13 +23,13 @@
     .publication-button:focus-visible{outline:3px solid #315bc0;outline-offset:3px}
     .publication-button svg{width:18px;height:18px;flex-shrink:0}
     .abstract{background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;padding:64px 28px}
-    .abstract h2,.dataset h2,.pipeline h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
-    .abstract h2::after,.dataset h2::after,.pipeline h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
-    .abstract p,.dataset p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:var(--content-width);margin:0 auto}
+    .abstract h2,.dataset h2,.pipeline h2,.benchmark h2{position:relative;text-align:center;font-size:32px;font-weight:700;line-height:1.2;margin:0 0 32px;padding-bottom:16px;color:#1e293b}
+    .abstract h2::after,.dataset h2::after,.pipeline h2::after,.benchmark h2::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:3px;background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);border-radius:2px}
+    .abstract p,.dataset p,.pipeline p,.benchmark p{font-size:17px;line-height:1.75;color:#4a4a4a;text-align:justify;max-width:var(--content-width);margin:0 auto}
     .dataset{background:#fff;padding:64px 28px;border-bottom:1px solid #e2e8f0}
     .dataset p+p{margin-top:24px}
     footer{max-width:960px;padding:0 28px;font-size:12px;color:#8892a6;margin:35px auto 0}
-    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset,.pipeline{padding:48px 20px}.abstract p,.dataset p{text-align:left}h1{margin-top:16px}}
+    @media(max-width:560px){main{padding:65px 0 70px}.publication-header{padding:0 20px 48px}.abstract,.dataset,.pipeline{padding:48px 20px}.abstract p,.dataset p,.pipeline p,.benchmark p{text-align:left}h1{margin-top:16px}}
 
     .dataset-teaser{width:100%;max-width:var(--content-width);margin:0 auto 24px;overflow:hidden}
     /* Trim the source image\'s horizontal white margins (57px left, 59px right at 2400px). */
@@ -54,6 +54,23 @@
     .bibtex pre{margin:0;padding:24px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:12px;overflow-x:auto;color:#1e293b;font-size:14px;line-height:1.6;tab-size:2}
     .bibtex code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
     @media(max-width:560px){.bibtex{padding:48px 20px}.bibtex pre{padding:18px;font-size:12px}}
+
+    .pipeline p{margin-top:24px}
+    .benchmark{background:#fff;padding:64px 28px;border-bottom:1px solid #e2e8f0}
+    .benchmark-table-scroll{max-width:var(--content-width);margin:28px auto 0;overflow-x:auto}
+    .benchmark-table-scroll:focus-visible{outline:3px solid #315bc0;outline-offset:3px}
+    .benchmark-table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px;line-height:1.5;color:#363636}
+    .benchmark-table caption{text-align:left;font-size:15px;line-height:1.6;color:#4a4a4a;padding:0 0 16px}
+    .benchmark-table th,.benchmark-table td{padding:12px 10px;text-align:center;white-space:nowrap}
+    .benchmark-table thead{border-top:2px solid #475569;border-bottom:1px solid #94a3b8;background:#f8fafc}
+    .benchmark-table th:first-child{text-align:left}
+    .benchmark-table tbody th{font-weight:500}
+    .benchmark-table .group-start{border-top:1px solid #cbd5e1}
+    .benchmark-table tbody{border-bottom:2px solid #475569}
+    .benchmark-table .uncertainty{font-size:.8em;color:#64748b}
+    .benchmark-table .context-trained{background:#f8fafc}
+    .benchmark-table-key{max-width:var(--content-width);margin:12px auto 0;font-size:13px;line-height:1.6;color:#64748b}
+    @media(max-width:560px){.benchmark{padding:48px 20px}}
   </style>
 </head>
 <body>
@@ -90,6 +107,30 @@
     <section class="pipeline" aria-labelledby="pipeline-heading">
       <h2 id="pipeline-heading">Pipeline</h2>
       <figure class="pipeline-figure"><img src="assets/elma-pipeline.webp" width="2400" height="1433" alt="ELMA data construction pipeline: motion extraction, postprocessing, episodic annotation, and anaphora detection." loading="lazy"></figure>
+      <p>Our fully automated pipeline consists of two main streams: motion extraction and quality control, and episodic text annotation with anaphora detection. In the motion stream, we track people in in-the-wild videos, select continuous 30-second clips with full-body visibility, and reconstruct 3D motions using GVHMR. We then filter out implausible poses and abnormal motion dynamics. In the annotation stream, we divide each clip into six 5-second segments and generate captions using Gemini 2.5 Pro. Each caption is then rewritten with preceding captions as context to preserve episodic continuity. Finally, GPT-4o identifies segments whose motion descriptions become more specific with earlier context and labels their dependency source segments.</p>
+    </section>
+    <section class="benchmark" aria-labelledby="benchmark-heading">
+      <h2 id="benchmark-heading">ELMABench</h2>
+      <p>ELMABench evaluates long-term motion generation from multi-segment instructions, focusing on cases where earlier descriptions provide useful context for interpreting later ones. Each example pairs six 5-second instructions with a continuous 30-second reference motion. We compare independent (T2M) and anaphoric (A2M) instruction settings using DoubleTake, FlowMDM, and UniMotion. Evaluation is restricted to anaphoric target segments, assessing motion quality and text alignment where cross-segment context matters.</p>
+      <div class="benchmark-table-scroll" role="region" aria-label="ELMABench results, scroll horizontally to see all metrics" tabindex="0">
+        <table class="benchmark-table" aria-describedby="benchmark-table-key">
+          <caption>Comparison of training and inference settings on ELMABench. T2M uses independent instructions, while A2M incorporates preceding context.</caption>
+          <thead><tr><th scope="col">Method</th><th scope="col">Train → Inference</th><th scope="col">FID ↓</th><th scope="col">R-P@3 ↑</th><th scope="col">Diversity →</th><th scope="col">Matching Score ↓</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">GT</th><td>–</td><td>0.21<span class="uncertainty"> ±0.03</span></td><td>0.480<span class="uncertainty"> ±0.009</span></td><td>7.31<span class="uncertainty"> ±0.16</span></td><td>4.53<span class="uncertainty"> ±0.07</span></td></tr>
+            <tr class="group-start"><th scope="row">DoubleTake</th><td>T2M → T2M</td><td>4.64<span class="uncertainty"> ±0.20</span></td><td>0.189<span class="uncertainty"> ±0.007</span></td><td>12.38<span class="uncertainty"> ±0.02</span></td><td>8.07<span class="uncertainty"> ±0.09</span></td></tr>
+            <tr><th scope="row">DoubleTake</th><td>T2M → A2M</td><td>5.16<span class="uncertainty"> ±0.23</span></td><td>0.184<span class="uncertainty"> ±0.006</span></td><td>12.18<span class="uncertainty"> ±0.03</span></td><td>7.91<span class="uncertainty"> ±0.12</span></td></tr>
+            <tr class="context-trained"><th scope="row">DoubleTake</th><td>A2M → A2M</td><td><strong>3.95</strong><span class="uncertainty"> ±0.18</span></td><td><strong>0.192</strong><span class="uncertainty"> ±0.007</span></td><td>12.34<span class="uncertainty"> ±0.04</span></td><td>8.10<span class="uncertainty"> ±0.11</span></td></tr>
+            <tr class="group-start"><th scope="row">FlowMDM</th><td>T2M → T2M</td><td>1.63<span class="uncertainty"> ±0.08</span></td><td>0.441<span class="uncertainty"> ±0.008</span></td><td>5.21<span class="uncertainty"> ±0.03</span></td><td>7.72<span class="uncertainty"> ±0.09</span></td></tr>
+            <tr><th scope="row">FlowMDM</th><td>T2M → A2M</td><td>1.94<span class="uncertainty"> ±0.09</span></td><td>0.421<span class="uncertainty"> ±0.006</span></td><td>5.32<span class="uncertainty"> ±0.03</span></td><td>7.60<span class="uncertainty"> ±0.10</span></td></tr>
+            <tr class="context-trained"><th scope="row">FlowMDM</th><td>A2M → A2M</td><td><strong>1.53</strong><span class="uncertainty"> ±0.06</span></td><td><strong>0.466</strong><span class="uncertainty"> ±0.008</span></td><td>4.92<span class="uncertainty"> ±0.03</span></td><td>8.12<span class="uncertainty"> ±0.11</span></td></tr>
+            <tr class="group-start"><th scope="row">UniMotion</th><td>T2M → T2M</td><td><strong>18.24</strong><span class="uncertainty"> ±0.20</span></td><td><strong>0.197</strong><span class="uncertainty"> ±0.004</span></td><td>6.47<span class="uncertainty"> ±0.06</span></td><td>10.10<span class="uncertainty"> ±0.02</span></td></tr>
+            <tr><th scope="row">UniMotion</th><td>T2M → A2M</td><td>18.35<span class="uncertainty"> ±0.20</span></td><td>0.192<span class="uncertainty"> ±0.005</span></td><td>6.45<span class="uncertainty"> ±0.08</span></td><td>10.03<span class="uncertainty"> ±0.03</span></td></tr>
+            <tr class="context-trained"><th scope="row">UniMotion</th><td>A2M → A2M</td><td>19.01<span class="uncertainty"> ±0.15</span></td><td>0.185<span class="uncertainty"> ±0.003</span></td><td>6.52<span class="uncertainty"> ±0.06</span></td><td>10.11<span class="uncertainty"> ±0.02</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="benchmark-table-key" id="benchmark-table-key">↓ Lower is better. ↑ Higher is better. → Closer to GT is better. Bold indicates the best FID and R-P@3 within each model.</div>
     </section>
     <section class="bibtex" id="BibTeX" aria-labelledby="bibtex-heading">
       <div class="bibtex-content">
